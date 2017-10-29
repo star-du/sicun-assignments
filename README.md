@@ -1,3 +1,3 @@
 # sicun-assignments
-This repo is specially used for assignments
-we are learning to make a game called five in a row
+This repo is specially used for assignments.\n
+The first assignment is a game five-in-a-row.\n
