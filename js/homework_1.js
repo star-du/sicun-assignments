@@ -72,21 +72,21 @@ function whoWin(x,y,color){
     right(x,y);
     left(x,y);
     console.log('horizonal counter:'+counter);
-    if(counter==5) alert('winner is '+color);
+    if(counter>=5) alert('winner is '+color);
     counter=1;
     up(x,y);
     down(x,y);
     console.log('vertical counter:'+counter);
-    if (counter==5){alert('winner is '+color);}
+    if (counter>=5){alert('winner is '+color);}
     counter=1;
     left_up(x,y);
     right_down(x,y);
     console.log('counter_1:'+counter);
-    if (counter==5){alert('winner is '+color);}
+    if (counter>=5){alert('winner is '+color);}
     counter=1;
     right_up(x,y);
     left_down(x,y);
     console.log('counter_2:'+counter);
-    if (counter==5){alert('winner is '+color);}
+    if (counter>=5){alert('winner is '+color);}
 
 }
