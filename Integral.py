@@ -36,7 +36,6 @@
 
 __author__ = 'Star Du'
 
-
 import matplotlib.pyplot as plt
 import numpy as np
 import logging
@@ -60,7 +59,7 @@ class Integral:
         Out[3]: 4999.99xx
     '''
     def __init__(self, equation, start, end,
-                 default_step=1,visual='off'):
+                 default_step=1, visual='off'):
         '''
         Initialize the solution class
 
@@ -85,23 +84,25 @@ class Integral:
         self.visual=visual
         # test if equation is valid
         try:
-            eval(equation.replace('x', '123'))
-        except SyntaxError: # equation not valid
-            print("Unsupported expression!")
-
+            eval(equation.replace('x', '666'))
+        except NameError:  # equation not valid
+            raise NameError
+        except AttributeError:
+            raise AttributeError
 
     def __call__(self, *args, **kwargs):
         """
         Do the calculation and return the value
         """
         if self.visual == 'on':
+            # plot the graph of the equation
             x = np.linspace(eval(start), eval(end), 50)
             plt.plot(x, eval(equation))
             plt.title('y={}'.format(equation))
             plt.show()
         counter = 1
         result = {}
-        y=[]
+        y = []
         while 1:
             result[counter]=0
             if counter == 1:
@@ -124,30 +125,28 @@ class Integral:
                         plt.show()
                     return result[counter]
             self._default_step = self._default_step / 2
-            #print("result of the run is {}".format(result[counter]))
+            # print("result of the run is {}".format(result[counter]))
             logging.debug("result of the {0} run is {1:.4f}".format(counter,result[counter]))
             counter+=1
-
-
-
 
 
 # Testing
 
 if __name__ == '__main__':
     print("Hint:to use functions and constants,add 'np.' "
-          "before the expression")
+          "before the expression.")
+    print("examples:np.sin(x), np.pi")
     equation = input("equation: ")
     start = input("start from:")
     end = input("ends at:")
     visualize = input("visualize on/off:")
     # get equation from user
-    # test run:
-    #   integral from 0 to 10 ( equation ) dx
-   # print("final result ==> {0:.4f}".format( Integral(equation, 0,10)() ))
-    r = Integral(equation,eval(start),eval(end),visual=visualize)
-    print("final result ==> {0:.4f}".format(r()))
-
-
-
-
+    try:
+        r = Integral(equation,eval(start),eval(end),visual=visualize)
+        print("final result ==> {0:.4f}".format(r()))
+    except NameError:
+        # input like 'sin(x)', 'y' will raise such error
+        print("Unsupported expression:'{}'!".format(equation))
+    except AttributeError:
+        # input like 'np.sinx'(should be np.sin(x)) will raise such error
+        print("Numpy has no such attribute, try consult the manual.")
